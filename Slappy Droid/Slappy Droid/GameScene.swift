@@ -11,7 +11,12 @@ import SpriteKit
 class GameScene: SKScene {
     
     let ASP_PIECES = 15
+    let GROUND_SPEED: CGFloat = -9
+    let GROUND_X_RESET: CGFloat = -150
+    
     var asphaltPieces = [SKSpriteNode]()
+    var moveGroundAction: SKAction!
+    var moveGroundActionForever: SKAction!
     
     
     override func didMoveToView(view: SKView) {
@@ -21,7 +26,7 @@ class GameScene: SKScene {
    
     
     override func update(currentTime: CFTimeInterval) {
-
+        groundMovement()
     }
     
     
@@ -46,6 +51,9 @@ class GameScene: SKScene {
     
     
     func setupGround() {
+        moveGroundAction = SKAction.moveByX(GROUND_SPEED, y: 0, duration: 0.02)
+        moveGroundActionForever = SKAction.repeatActionForever(moveGroundAction)
+        
         for x in 0..<ASP_PIECES {
             let asp = SKSpriteNode(imageNamed: "asphalt")
             asphaltPieces.append(asp)
@@ -59,8 +67,28 @@ class GameScene: SKScene {
                 asp.position = CGPointMake(asp.size.width + asphaltPieces[x - 1].position.x,
                     asphaltPieces[x - 1].position.y)
             }
-            
+
+            asp.runAction(moveGroundActionForever)
             addChild(asp)
+        }
+    }
+    
+    
+    // MARK: Ground Function
+    
+    func groundMovement() {
+        for x in 0..<ASP_PIECES {
+            if asphaltPieces[x].position.x <= GROUND_X_RESET {
+                var index: Int!
+                if x == 0 {
+                    index = asphaltPieces.count - 1
+                } else {
+                    index = x - 1
+                }
+                
+                let newPosition = CGPointMake(asphaltPieces[index].position.x + asphaltPieces[x].size.width, asphaltPieces[x].position.y)
+                asphaltPieces[x].position = newPosition
+            }
         }
     }
 }
