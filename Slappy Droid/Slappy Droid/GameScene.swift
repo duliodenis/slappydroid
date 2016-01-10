@@ -69,6 +69,12 @@ class GameScene: SKScene {
         
         for x in 0..<ASP_PIECES {
             let asp = SKSpriteNode(imageNamed: "asphalt")
+            
+            // Add a static physics body as a ground collider
+            let groundCollider = SKPhysicsBody(rectangleOfSize: CGSizeMake(asp.size.width, 5), center: CGPointMake(0, -20))
+            groundCollider.dynamic = false
+            asp.physicsBody = groundCollider
+            
             asphaltPieces.append(asp)
             
             if x == 0 {
@@ -118,13 +124,21 @@ class GameScene: SKScene {
         character.zPosition = 10
         character.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(characterPushFrames, timePerFrame: 0.1)))
         
+        // Set a front and bottom collider for the character
+        let fronColliderSize = CGSizeMake(5, character.size.height * 0.80) // 80% the height of the character
+        let frontCollider = SKPhysicsBody(rectangleOfSize: fronColliderSize, center: CGPointMake(25, 0))
+        
+        let bottomColliderSize = CGSizeMake(character.size.width / 2, 5) // half the width of the character
+        let bottomCollider = SKPhysicsBody(rectangleOfSize: bottomColliderSize, center: CGPointMake(0, -50))
+        
+        character.physicsBody = SKPhysicsBody(bodies: [frontCollider, bottomCollider])
+        
         // Physics on Character and World
-        character.physicsBody = SKPhysicsBody(rectangleOfSize: character.size)
         character.physicsBody?.restitution = 0 // character has no bounciness
         character.physicsBody?.linearDamping = 0.1 // no friction
         character.physicsBody?.allowsRotation = false // no automatic rotation
         character.physicsBody?.mass = 0.1
-        character.physicsBody?.dynamic = false // not automatically moved
+        character.physicsBody?.dynamic = true // automatically moved with colliders
         
         physicsWorld.gravity = CGVectorMake(0, -10)
         
@@ -133,11 +147,11 @@ class GameScene: SKScene {
     
     
     func resetCharacter() {
-        // if character fell below default vertical position set him to default and turn off the physics
-        if ceil(character.position.y) < CHAR_Y_POSITION {
-            character.position = CGPointMake(CHAR_X_POSITION, CHAR_Y_POSITION)
-            character.physicsBody?.dynamic = false // turn off automatically moving due to gravity
-            isJumping = false // reset the jump state
+        // if character stopped moving then allow it to jump again
+        if isJumping {
+            if floor(character.physicsBody!.velocity.dy) == 0 {
+                isJumping = false // reset the jump state
+            }
         }
     }
     
@@ -154,7 +168,6 @@ class GameScene: SKScene {
     func jump(gesture: UIGestureRecognizer) {
         if !isJumping {
             isJumping = true
-            character.physicsBody?.dynamic = true
             let impulseHorizontal: CGFloat = 0.0
             let impulseVertical: CGFloat =  60.0
             character.physicsBody?.applyImpulse(CGVectorMake(impulseHorizontal, impulseVertical))
