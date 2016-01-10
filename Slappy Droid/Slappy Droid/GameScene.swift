@@ -10,7 +10,7 @@ import SpriteKit
 
 class GameScene: SKScene {
     
-    // Scenery Variable & Constants
+    // MARK: Scenery Variable & Constants
     let ASP_PIECES = 15
     let GROUND_SPEED: CGFloat = -9
     let GROUND_X_RESET: CGFloat = -150
@@ -18,22 +18,28 @@ class GameScene: SKScene {
     var moveGroundAction: SKAction!
     var moveGroundActionForever: SKAction!
     
-    // Character Variables & Constants
+    // MARK: Character Variables & Constants
     var characterPushFrames = [SKTexture]()
     let CHAR_PUSH_FRAMES = 12
     let CHAR_X_POSITION: CGFloat = 160
     let CHAR_Y_POSITION: CGFloat = 180
     var character: SKSpriteNode!
+    var isJumping = false // Is the character in a jump state
+    
+    
+    // MARK: Scene Lifecycle
     
     override func didMoveToView(view: SKView) {
         setupBackground()
         setupGround()
         setupCharacter()
+        setupGestures()
     }
    
     
     override func update(currentTime: CFTimeInterval) {
         groundMovement()
+        resetCharacter()
     }
     
     
@@ -112,6 +118,46 @@ class GameScene: SKScene {
         character.zPosition = 10
         character.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(characterPushFrames, timePerFrame: 0.1)))
         
+        // Physics on Character and World
+        character.physicsBody = SKPhysicsBody(rectangleOfSize: character.size)
+        character.physicsBody?.restitution = 0 // character has no bounciness
+        character.physicsBody?.linearDamping = 0.1 // no friction
+        character.physicsBody?.allowsRotation = false // no automatic rotation
+        character.physicsBody?.mass = 0.1
+        character.physicsBody?.dynamic = false // not automatically moved
+        
+        physicsWorld.gravity = CGVectorMake(0, -10)
+        
         addChild(character)
+    }
+    
+    
+    func resetCharacter() {
+        // if character fell below default vertical position set him to default and turn off the physics
+        if ceil(character.position.y) < CHAR_Y_POSITION {
+            character.position = CGPointMake(CHAR_X_POSITION, CHAR_Y_POSITION)
+            character.physicsBody?.dynamic = false // turn off automatically moving due to gravity
+            isJumping = false // reset the jump state
+        }
+    }
+    
+    
+    // MARK: Gesture Recognizer Functions
+    
+    func setupGestures() {
+        let tap = UITapGestureRecognizer(target: self, action: "jump:")
+        tap.allowedPressTypes = [NSNumber(integer: UIPressType.Select.rawValue)]
+        view?.addGestureRecognizer(tap)
+    }
+    
+    
+    func jump(gesture: UIGestureRecognizer) {
+        if !isJumping {
+            isJumping = true
+            character.physicsBody?.dynamic = true
+            let impulseHorizontal: CGFloat = 0.0
+            let impulseVertical: CGFloat =  60.0
+            character.physicsBody?.applyImpulse(CGVectorMake(impulseHorizontal, impulseVertical))
+        }
     }
 }
