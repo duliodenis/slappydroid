@@ -10,18 +10,25 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    // Scenery Variable & Constants
     let ASP_PIECES = 15
     let GROUND_SPEED: CGFloat = -9
     let GROUND_X_RESET: CGFloat = -150
-    
     var asphaltPieces = [SKSpriteNode]()
     var moveGroundAction: SKAction!
     var moveGroundActionForever: SKAction!
     
+    // Character Variables & Constants
+    var characterPushFrames = [SKTexture]()
+    let CHAR_PUSH_FRAMES = 12
+    let CHAR_X_POSITION: CGFloat = 160
+    let CHAR_Y_POSITION: CGFloat = 180
+    var character: SKSpriteNode!
     
     override func didMoveToView(view: SKView) {
         setupBackground()
         setupGround()
+        setupCharacter()
     }
    
     
@@ -90,5 +97,21 @@ class GameScene: SKScene {
                 asphaltPieces[x].position = newPosition
             }
         }
+    }
+    
+    
+    // MARK: Character Functions
+    
+    func setupCharacter() {
+        for x in 0 ..< CHAR_PUSH_FRAMES {
+            characterPushFrames.append(SKTexture(imageNamed: "push\(x)"))
+        }
+        
+        character = SKSpriteNode(texture: characterPushFrames[0])
+        character.position = CGPointMake(CHAR_X_POSITION, CHAR_Y_POSITION)
+        character.zPosition = 10
+        character.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(characterPushFrames, timePerFrame: 0.1)))
+        
+        addChild(character)
     }
 }
