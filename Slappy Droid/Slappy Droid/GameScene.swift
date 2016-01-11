@@ -18,13 +18,7 @@ class GameScene: SKScene {
     var moveGroundAction: SKAction!
     var moveGroundActionForever: SKAction!
     
-    // MARK: Character Variables & Constants
-    var characterPushFrames = [SKTexture]()
-    let CHAR_PUSH_FRAMES = 12
-    let CHAR_X_POSITION: CGFloat = 160
-    let CHAR_Y_POSITION: CGFloat = 180
-    var character: SKSpriteNode!
-    var isJumping = false // Is the character in a jump state
+    var player: Player!
     
     
     // MARK: Scene Lifecycle
@@ -32,15 +26,15 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         setupBackground()
         setupGround()
-        setupCharacter()
+        setupPlayer()
         setupGestures()
         setupDroid()
+        setupWorld()
     }
    
     
     override func update(currentTime: CFTimeInterval) {
         groundMovement()
-        resetCharacter()
         updateChildren()
     }
     
@@ -103,12 +97,24 @@ class GameScene: SKScene {
     }
     
     
+    func setupPlayer() {
+        player = Player()
+        addChild(player)
+    }
+    
+    
     func setupDroid() {
         let droid = Droid()
         droid.startMoving()
         addChild(droid)
     }
     
+    
+    // do any world environmental variable setting
+    func setupWorld() {
+        physicsWorld.gravity = CGVectorMake(0, -10)
+    }
+
     
     // MARK: Ground Function
     
@@ -129,65 +135,16 @@ class GameScene: SKScene {
     }
     
     
-    // MARK: Character Functions
-    
-    func setupCharacter() {
-        for x in 0 ..< CHAR_PUSH_FRAMES {
-            characterPushFrames.append(SKTexture(imageNamed: "push\(x)"))
-        }
-        
-        character = SKSpriteNode(texture: characterPushFrames[0])
-        character.position = CGPointMake(CHAR_X_POSITION, CHAR_Y_POSITION)
-        character.zPosition = 10
-        character.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(characterPushFrames, timePerFrame: 0.1)))
-        
-        // Set a front and bottom collider for the character
-        let fronColliderSize = CGSizeMake(5, character.size.height * 0.80) // 80% the height of the character
-        let frontCollider = SKPhysicsBody(rectangleOfSize: fronColliderSize, center: CGPointMake(25, 0))
-        
-        let bottomColliderSize = CGSizeMake(character.size.width / 2, 5) // half the width of the character
-        let bottomCollider = SKPhysicsBody(rectangleOfSize: bottomColliderSize, center: CGPointMake(0, -50))
-        
-        character.physicsBody = SKPhysicsBody(bodies: [frontCollider, bottomCollider])
-        
-        // Physics on Character and World
-        character.physicsBody?.restitution = 0 // character has no bounciness
-        character.physicsBody?.linearDamping = 0.1 // no friction
-        character.physicsBody?.allowsRotation = false // no automatic rotation
-        character.physicsBody?.mass = 0.1
-        character.physicsBody?.dynamic = true // automatically moved with colliders
-        
-        physicsWorld.gravity = CGVectorMake(0, -10)
-        
-        addChild(character)
-    }
-    
-    
-    func resetCharacter() {
-        // if character stopped moving then allow it to jump again
-        if isJumping {
-            if floor(character.physicsBody!.velocity.dy) == 0 {
-                isJumping = false // reset the jump state
-            }
-        }
-    }
-    
-    
     // MARK: Gesture Recognizer Functions
     
     func setupGestures() {
-        let tap = UITapGestureRecognizer(target: self, action: "jump:")
+        let tap = UITapGestureRecognizer(target: self, action: "tapped:")
         tap.allowedPressTypes = [NSNumber(integer: UIPressType.Select.rawValue)]
         view?.addGestureRecognizer(tap)
     }
     
     
-    func jump(gesture: UIGestureRecognizer) {
-        if !isJumping {
-            isJumping = true
-            let impulseHorizontal: CGFloat = 0.0
-            let impulseVertical: CGFloat =  60.0
-            character.physicsBody?.applyImpulse(CGVectorMake(impulseHorizontal, impulseVertical))
-        }
+    func tapped(gesture: UIGestureRecognizer) {
+        player.jump()
     }
 }
