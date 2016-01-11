@@ -34,12 +34,22 @@ class GameScene: SKScene {
         setupGround()
         setupCharacter()
         setupGestures()
+        setupDroid()
     }
    
     
     override func update(currentTime: CFTimeInterval) {
         groundMovement()
         resetCharacter()
+        updateChildren()
+    }
+    
+    
+    // call the update function of each child
+    func updateChildren() {
+        for child in children {
+            child.update()
+        }
     }
     
     
@@ -90,6 +100,13 @@ class GameScene: SKScene {
             asp.runAction(moveGroundActionForever)
             addChild(asp)
         }
+    }
+    
+    
+    func setupDroid() {
+        let droid = Droid()
+        droid.startMoving()
+        addChild(droid)
     }
     
     
