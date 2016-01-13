@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6C4FDE801C43F381002AB9E1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FDE7F1C43F381002AB9E1 /* Player.swift */; };
+		6C4FDE831C43FC6A002AB9E1 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FDE821C43FC6A002AB9E1 /* GameManager.swift */; };
 		6C7B64EE1C42FAD8008C4BB9 /* Obstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7B64ED1C42FAD8008C4BB9 /* Obstacle.swift */; };
 		6C7B64F01C4300F9008C4BB9 /* SKNodeUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7B64EF1C4300F9008C4BB9 /* SKNodeUpdate.swift */; };
 		6C7B64F21C430204008C4BB9 /* Droid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7B64F11C430204008C4BB9 /* Droid.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		6C4FDE7F1C43F381002AB9E1 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		6C4FDE821C43FC6A002AB9E1 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		6C7B64ED1C42FAD8008C4BB9 /* Obstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstacle.swift; sourceTree = "<group>"; };
 		6C7B64EF1C4300F9008C4BB9 /* SKNodeUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKNodeUpdate.swift; sourceTree = "<group>"; };
 		6C7B64F11C430204008C4BB9 /* Droid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Droid.swift; sourceTree = "<group>"; };
@@ -47,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C4FDE811C43FC52002AB9E1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6C4FDE821C43FC6A002AB9E1 /* GameManager.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		6C7B64F31C430443008C4BB9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +113,7 @@
 			children = (
 				6C7B64F51C43048D008C4BB9 /* Scenes */,
 				6C7B64F41C430450008C4BB9 /* GameObjects */,
+				6C4FDE811C43FC52002AB9E1 /* Services */,
 				6C7B64F61C4304B9008C4BB9 /* Resources */,
 				6C7B64F31C430443008C4BB9 /* Extensions */,
 				6C7F7A4A1C3AC81E00544C17 /* AppDelegate.swift */,
@@ -187,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C7F7A4F1C3AC81E00544C17 /* GameScene.swift in Sources */,
+				6C4FDE831C43FC6A002AB9E1 /* GameManager.swift in Sources */,
 				6C7F7A511C3AC81E00544C17 /* GameViewController.swift in Sources */,
 				6C7B64F01C4300F9008C4BB9 /* SKNodeUpdate.swift in Sources */,
 				6C7B64EE1C42FAD8008C4BB9 /* Obstacle.swift in Sources */,

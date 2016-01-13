@@ -48,6 +48,10 @@ class Player: SKSpriteNode {
         physicsBody?.allowsRotation = false // no automatic rotation
         physicsBody?.mass = 0.1
         physicsBody?.dynamic = true // automatically moved with colliders
+        
+        // Define Collision Category
+        physicsBody?.categoryBitMask = GameManager.sharedInstance.COLLIDER_PLAYER
+        physicsBody?.contactTestBitMask = GameManager.sharedInstance.COLLIDER_OBSTACLE
     }
     
     

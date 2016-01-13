@@ -29,7 +29,7 @@ class Obstacle: SKSpriteNode {
         position = CGPointMake(Obstacle.START_X_POSITION, 180)
         
         // Establish the movement action - equivalent to the ground
-        moveAction = SKAction.moveByX(-8.5, y: 0, duration: 0.02)
+        moveAction = SKAction.moveByX(GameManager.sharedInstance.MOVEMENT_SPEED, y: 0, duration: 0.02)
         moveForever = SKAction.repeatActionForever(moveAction)
         
         // Mid Layer
@@ -51,5 +51,9 @@ class Obstacle: SKSpriteNode {
     
     func initPhysics() {
         physicsBody?.dynamic = false // set as static obstacles
+        
+        // Define Collision Category
+        physicsBody?.categoryBitMask = GameManager.sharedInstance.COLLIDER_OBSTACLE
+        physicsBody?.contactTestBitMask = GameManager.sharedInstance.COLLIDER_PLAYER
     }
 }

@@ -8,11 +8,10 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: Scenery Variable & Constants
     let ASP_PIECES = 15
-    let GROUND_SPEED: CGFloat = -9
     let GROUND_X_RESET: CGFloat = -150
     var asphaltPieces = [SKSpriteNode]()
     var moveGroundAction: SKAction!
@@ -68,7 +67,7 @@ class GameScene: SKScene {
     
     
     func setupGround() {
-        moveGroundAction = SKAction.moveByX(GROUND_SPEED, y: 0, duration: 0.02)
+        moveGroundAction = SKAction.moveByX(GameManager.sharedInstance.MOVEMENT_SPEED, y: 0, duration: 0.02)
         moveGroundActionForever = SKAction.repeatActionForever(moveGroundAction)
         
         for x in 0..<ASP_PIECES {
@@ -113,6 +112,7 @@ class GameScene: SKScene {
     // do any world environmental variable setting
     func setupWorld() {
         physicsWorld.gravity = CGVectorMake(0, -10)
+        physicsWorld.contactDelegate = self
     }
 
     
@@ -146,5 +146,15 @@ class GameScene: SKScene {
     
     func tapped(gesture: UIGestureRecognizer) {
         player.jump()
+    }
+    
+    
+    // MARK: Collision Handling
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        if contact.bodyA.categoryBitMask == GameManager.sharedInstance.COLLIDER_OBSTACLE ||
+           contact.bodyB.categoryBitMask == GameManager.sharedInstance.COLLIDER_OBSTACLE {
+            print("Hit a droid")
+        }
     }
 }
