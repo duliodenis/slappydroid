@@ -12,8 +12,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: Scenery Variable & Constants
     let ASP_PIECES = 15
+    let SIDEWALK_PIECES = 24
     let GROUND_X_RESET: CGFloat = -150
     var asphaltPieces = [SKSpriteNode]()
+    var sidewalkPieces = [SKSpriteNode]()
     var moveGroundAction: SKAction!
     var moveGroundActionForever: SKAction!
     
@@ -25,6 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         setupBackground()
         setupGround()
+        setupSidewalk()
         setupPlayer()
         setupGestures()
         setupDroid()
@@ -34,6 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         groundMovement()
+        sidewalkMovement()
         updateChildren()
     }
     
@@ -96,6 +100,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
+    func setupSidewalk() {
+        for x in 0..<SIDEWALK_PIECES {
+            let piece = SKSpriteNode(imageNamed: "sidewalk")
+            
+            sidewalkPieces.append(piece)
+            
+            if x == 0 {
+                // if its the first one then start at the bottom left
+                let start = CGPointMake(0, 190)
+                piece.position = start
+            } else {
+                // otherwise, position it appropriately
+                piece.position = CGPointMake(piece.size.width + sidewalkPieces[x - 1].position.x,
+                    sidewalkPieces[x - 1].position.y)
+            }
+            
+            piece.zPosition = 5
+            piece.runAction(moveGroundActionForever)
+            addChild(piece)
+        }
+        
+    }
+    
+    
     func setupPlayer() {
         player = Player()
         addChild(player)
@@ -130,6 +158,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 let newPosition = CGPointMake(asphaltPieces[index].position.x + asphaltPieces[x].size.width, asphaltPieces[x].position.y)
                 asphaltPieces[x].position = newPosition
+            }
+        }
+    }
+        
+    
+    func sidewalkMovement() {
+        for x in 0..<SIDEWALK_PIECES {
+            if sidewalkPieces[x].position.x <= GROUND_X_RESET {
+                var index: Int!
+                if x == 0 {
+                    index = sidewalkPieces.count - 1
+                } else {
+                    index = x - 1
+                }
+                
+                let newPosition = CGPointMake(sidewalkPieces[index].position.x + sidewalkPieces[x].size.width, sidewalkPieces[x].position.y)
+                sidewalkPieces[x].position = newPosition
             }
         }
     }
