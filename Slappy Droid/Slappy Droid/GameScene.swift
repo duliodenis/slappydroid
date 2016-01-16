@@ -16,6 +16,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let GROUND_X_RESET: CGFloat = -150
     var asphaltPieces = [SKSpriteNode]()
     var sidewalkPieces = [SKSpriteNode]()
+    
+    // Background Arrays for parallaxing
+    var farBackground = [SKSpriteNode]()
+    var midBackground = [SKSpriteNode]()
+    var nearBackground = [SKSpriteNode]()
+    var backgroundActions = [SKAction]()
+    let BACKGROUND_X_RESET: CGFloat = -912.0
+    
     var moveGroundAction: SKAction!
     var moveGroundActionForever: SKAction!
     
@@ -38,6 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(currentTime: CFTimeInterval) {
         groundMovement()
         sidewalkMovement()
+        backgroundMovement()
         updateChildren()
     }
     
@@ -53,20 +62,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: UI Set-up Functions
     
     func setupBackground() {
-        let background = SKSpriteNode(imageNamed: "bg1")
-        background.position  = CGPointMake(517, 400)
-        background.zPosition = 3
-        addChild(background)
-        
-        let background2 = SKSpriteNode(imageNamed: "bg2")
-        background2.position = CGPointMake(517, 450)
-        background2.zPosition = 2
-        addChild(background2)
-        
-        let background3 = SKSpriteNode(imageNamed: "bg3")
-        background3.position = CGPointMake(517, 500)
-        background3.zPosition = 1
-        addChild(background3)
+        var action: SKAction!
+        for i in 0..<3 {
+            let background = SKSpriteNode(imageNamed: "bg1")
+            background.position  = CGPointMake(CGFloat(i) * background.size.width, 400)
+            background.zPosition = 3
+            nearBackground.append(background)
+            action = SKAction.repeatActionForever(SKAction.moveByX(-2.0, y: 0, duration: 0.02))
+            background.runAction(action)
+            backgroundActions.append(action)
+            addChild(background)
+            
+            let background2 = SKSpriteNode(imageNamed: "bg2")
+            background2.position = CGPointMake(CGFloat(i) * background2.size.width, 450)
+            background2.zPosition = 2
+            midBackground.append(background2)
+            action = SKAction.repeatActionForever(SKAction.moveByX(-1.0, y: 0, duration: 0.02))
+            background2.runAction(action)
+            backgroundActions.append(action)
+            addChild(background2)
+            
+            let background3 = SKSpriteNode(imageNamed: "bg3")
+            background3.position = CGPointMake(CGFloat(i) * background3.size.width, 500)
+            background3.zPosition = 1
+            farBackground.append(background3)
+            action = SKAction.repeatActionForever(SKAction.moveByX(-0.5, y: 0, duration: 0.02))
+            background3.runAction(action)
+            backgroundActions.append(action)
+            addChild(background3)
+        }
     }
     
     
@@ -176,6 +200,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let newPosition = CGPointMake(sidewalkPieces[index].position.x + sidewalkPieces[x].size.width, sidewalkPieces[x].position.y)
                 sidewalkPieces[x].position = newPosition
             }
+        }
+    }
+    
+    
+    func backgroundMovement() {
+        for i in 0..<3 {
+            setPosition(farBackground,  index: i, resetValue: BACKGROUND_X_RESET)
+            setPosition(midBackground,  index: i, resetValue: BACKGROUND_X_RESET)
+            setPosition(nearBackground, index: i, resetValue: BACKGROUND_X_RESET)
+        }
+    }
+    
+    
+    func setPosition(imageArray: [SKSpriteNode], index: Int, resetValue: CGFloat) {
+        if imageArray[index].position.x <= resetValue {
+            var i: Int!
+            if index == 0 {
+                i = imageArray.count - 1
+            } else {
+                i = index - 1
+            }
+            
+            let newPosition = CGPointMake(imageArray[i].position.x + imageArray[index].size.width, imageArray[index].position.y)
+            imageArray[i].position = newPosition
         }
     }
     
