@@ -62,35 +62,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: UI Set-up Functions
     
     func setupBackground() {
-        var action: SKAction!
         for i in 0..<3 {
-            let background = SKSpriteNode(imageNamed: "bg1")
-            background.position  = CGPointMake(CGFloat(i) * background.size.width, 400)
-            background.zPosition = 3
-            nearBackground.append(background)
-            action = SKAction.repeatActionForever(SKAction.moveByX(-2.0, y: 0, duration: 0.02))
-            background.runAction(action)
-            backgroundActions.append(action)
-            addChild(background)
-            
-            let background2 = SKSpriteNode(imageNamed: "bg2")
-            background2.position = CGPointMake(CGFloat(i) * background2.size.width, 450)
-            background2.zPosition = 2
-            midBackground.append(background2)
-            action = SKAction.repeatActionForever(SKAction.moveByX(-1.0, y: 0, duration: 0.02))
-            background2.runAction(action)
-            backgroundActions.append(action)
-            addChild(background2)
-            
-            let background3 = SKSpriteNode(imageNamed: "bg3")
-            background3.position = CGPointMake(CGFloat(i) * background3.size.width, 500)
-            background3.zPosition = 1
-            farBackground.append(background3)
-            action = SKAction.repeatActionForever(SKAction.moveByX(-0.5, y: 0, duration: 0.02))
-            background3.runAction(action)
-            backgroundActions.append(action)
-            addChild(background3)
+            addBackground("bg1", index: i, imageWidth: 400, zPosition: 3, velocity: -2.0)
+            addBackground("bg2", index: i, imageWidth: 450, zPosition: 2, velocity: -1.0)
+            addBackground("bg3", index: i, imageWidth: 500, zPosition: 1, velocity: -0.5)
         }
+    }
+    
+    
+    func addBackground(imageName: String!, index: Int, imageWidth: CGFloat, zPosition: CGFloat, velocity: CGFloat) {
+        let background = SKSpriteNode(imageNamed: imageName)
+        background.position  = CGPointMake(CGFloat(index) * background.size.width, imageWidth)
+        background.zPosition = zPosition
+        let action: SKAction = SKAction.repeatActionForever(SKAction.moveByX(velocity, y: 0, duration: 0.02))
+        background.runAction(action)
+        backgroundActions.append(action)
+        addChild(background)
+        
+        if imageName == "bg1" { nearBackground.append(background) }
+        if imageName == "bg2" { midBackground.append(background) }
+        if imageName == "bg3" { farBackground.append(background) }
     }
     
     
@@ -223,7 +214,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             let newPosition = CGPointMake(imageArray[i].position.x + imageArray[index].size.width, imageArray[index].position.y)
-            imageArray[i].position = newPosition
+            imageArray[index].position = newPosition
         }
     }
     
