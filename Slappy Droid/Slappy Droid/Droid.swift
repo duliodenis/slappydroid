@@ -12,6 +12,7 @@ class Droid: Obstacle {
     
     convenience init() {
         self.init(imageNamed: "droid3")
+        self.yPosition = 180
     }
     
     

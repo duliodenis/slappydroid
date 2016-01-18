@@ -15,6 +15,8 @@ class Moveable: SKSpriteNode {
     static let RESET_X_POSITION: CGFloat = -800
     static let START_X_POSITION: CGFloat = 1800
     
+    var yPosition: CGFloat = 0
+    
     
     // MARK: Obstacle Actions
     
@@ -26,7 +28,7 @@ class Moveable: SKSpriteNode {
     
     func startMoving() {
         // Set the starting position
-        position = CGPointMake(Moveable.START_X_POSITION, 180)
+        position = CGPointMake(Moveable.START_X_POSITION, yPosition)
         
         // Establish the movement action - equivalent to the ground
         moveAction = SKAction.moveByX(GameManager.sharedInstance.MOVEMENT_SPEED, y: 0, duration: 0.02)

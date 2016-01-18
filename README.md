@@ -1,7 +1,7 @@
 # Slappy Droid
-A Swift 2 tvOS 9 AppleTV game that uses SpriteKit.
+An infinite runner Swift 2 tvOS 9 AppleTV game that uses SpriteKit.
 
-![](https://github.com/duliodenis/slappydroid/blob/master/art/screenshot/slappydroid5.gif)
+![](https://github.com/duliodenis/slappydroid/blob/master/art/screenshot/slappydroid6.gif)
 
 ### Licensing
 Slappy Droid is licensed under [the MIT License](https://github.com/duliodenis/slappydroid/blob/master/LICENSE).

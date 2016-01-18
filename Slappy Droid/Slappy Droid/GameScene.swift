@@ -16,6 +16,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let GROUND_X_RESET: CGFloat = -150
     var asphaltPieces = [SKSpriteNode]()
     var sidewalkPieces = [SKSpriteNode]()
+    var buildings = [SKSpriteNode]()
     
     // Background Arrays for parallaxing
     var farBackground = [SKSpriteNode]()
@@ -36,6 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupBackground()
         setupGround()
         setupSidewalk()
+        setupBuildings()
         setupPlayer()
         setupGestures()
         setupDroid()
@@ -135,7 +137,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             piece.runAction(moveGroundActionForever)
             addChild(piece)
         }
-        
+    }
+    
+    
+    func setupBuildings() {
+        for i in 0..<3 {
+            let wait = SKAction.waitForDuration(2.0 * Double(i))
+            
+            runAction(wait, completion: { () -> Void in
+                let building = Building()
+                self.buildings.append(building)
+                self.addChild(building)
+                building.startMoving()
+            })
+        }
     }
     
     
