@@ -34,9 +34,6 @@ class Moveable: SKSpriteNode {
         moveAction = SKAction.moveByX(GameManager.sharedInstance.MOVEMENT_SPEED, y: 0, duration: 0.02)
         moveForever = SKAction.repeatActionForever(moveAction)
         
-        // Mid Layer
-        zPosition = 7
-        
         runAction(moveForever)
     }
     

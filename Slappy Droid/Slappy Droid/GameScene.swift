@@ -17,6 +17,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var asphaltPieces = [SKSpriteNode]()
     var sidewalkPieces = [SKSpriteNode]()
     var buildings = [SKSpriteNode]()
+    var obstacles = [SKSpriteNode]()
     
     // Background Arrays for parallaxing
     var farBackground = [SKSpriteNode]()
@@ -133,7 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     sidewalkPieces[x - 1].position.y)
             }
             
-            piece.zPosition = 5
+            piece.zPosition = 4
             piece.runAction(moveGroundActionForever)
             addChild(piece)
         }
@@ -164,6 +165,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let droid = Droid()
         droid.startMoving()
         addChild(droid)
+        obstacles.append(droid)
     }
     
     
@@ -253,7 +255,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBeginContact(contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == GameManager.sharedInstance.COLLIDER_OBSTACLE ||
            contact.bodyB.categoryBitMask == GameManager.sharedInstance.COLLIDER_OBSTACLE {
-            print("Hit a droid")
+            
+            removeAllActions()
+            
+            // Crash Animation
+            player.playCrashAnimation()
+            
+            // Stop the moving ground
+            for node in asphaltPieces  { node.removeAllActions() }
+            for node in sidewalkPieces { node.removeAllActions() }
+            
+            // Stop the moving backgrounds
+            for i in 0..<3 {
+                farBackground[i].removeAllActions()
+                midBackground[i].removeAllActions()
+                nearBackground[i].removeAllActions()
+            }
+            
+            // Stop the obstacles
+            for obstacle in obstacles { obstacle.removeAllActions() }
+            
+            // Stop the Moving Buildings
+            for building in buildings { building.removeAllActions() }
         }
     }
 }

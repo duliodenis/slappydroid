@@ -12,7 +12,10 @@ class Player: SKSpriteNode {
     
     // MARK: Character Variables & Constants
     var characterPushFrames = [SKTexture]()
+    var characterCrashFrames = [SKTexture]()
+    
     let CHAR_PUSH_FRAMES = 12
+    let CHAR_CRASH_FRAMES = 9
     let CHAR_X_POSITION: CGFloat = 160
     let CHAR_Y_POSITION: CGFloat = 180
     var isJumping = false // Is the character in a jump state
@@ -29,9 +32,12 @@ class Player: SKSpriteNode {
             characterPushFrames.append(SKTexture(imageNamed: "push\(x)"))
         }
         
+        for y in 0 ..< CHAR_CRASH_FRAMES {
+            characterCrashFrames.append(SKTexture(imageNamed: "crash\(y)"))
+        }
+        
         position = CGPointMake(CHAR_X_POSITION, CHAR_Y_POSITION)
         zPosition = 10
-        runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(characterPushFrames, timePerFrame: 0.1)))
         
         // Set a front and bottom collider for the character
         let fronColliderSize = CGSizeMake(5, size.height * 0.80) // 80% the height of the character
@@ -52,6 +58,9 @@ class Player: SKSpriteNode {
         // Define Collision Category
         physicsBody?.categoryBitMask = GameManager.sharedInstance.COLLIDER_PLAYER
         physicsBody?.contactTestBitMask = GameManager.sharedInstance.COLLIDER_OBSTACLE
+        
+        // Start Running Animation
+        playRunAnimation()
     }
     
     
@@ -59,9 +68,21 @@ class Player: SKSpriteNode {
         if !isJumping {
             isJumping = true
             let impulseHorizontal: CGFloat = 0.0
-            let impulseVertical: CGFloat =  60.0
+            let impulseVertical: CGFloat =  70.0
             physicsBody?.applyImpulse(CGVectorMake(impulseHorizontal, impulseVertical))
         }
+    }
+    
+    
+    func playRunAnimation() {
+        removeAllActions()
+        runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(characterPushFrames, timePerFrame: 0.1)))
+    }
+    
+    
+    func playCrashAnimation() {
+        removeAllActions()
+        runAction(SKAction.animateWithTextures(characterCrashFrames, timePerFrame: 0.04))
     }
     
     

@@ -21,6 +21,7 @@ class Droid: Obstacle {
         let topCollider = SKPhysicsBody(rectangleOfSize: CGSizeMake(size.width * 0.80, 5), center: CGPointMake(0, (size.height / 2) - 7))
         
         physicsBody = SKPhysicsBody(bodies: [frontCollider, topCollider])
+        zPosition = 5
         super.initPhysics()
     }
     
