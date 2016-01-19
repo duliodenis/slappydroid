@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import AVFoundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -31,6 +32,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var player: Player!
     
+    // Audio Player
+    var musicPlayer: AVAudioPlayer!
+    
     
     // MARK: Scene Lifecycle
     
@@ -43,6 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupGestures()
         setupDroid()
         setupWorld()
+        playLevelMusic()
     }
    
     
@@ -261,6 +266,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // Crash Animation
             player.playCrashAnimation()
             
+            // Stop the music
+            musicPlayer.stop()
+            
+            // Play the Crash Sound
+            runAction(SKAction.playSoundFileNamed("gameover.wav", waitForCompletion: false))
+            
             // Stop the moving ground
             for node in asphaltPieces  { node.removeAllActions() }
             for node in sidewalkPieces { node.removeAllActions() }
@@ -277,6 +288,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             // Stop the Moving Buildings
             for building in buildings { building.removeAllActions() }
+        }
+    }
+    
+    
+    // MARK: Audio Function
+    
+    func playLevelMusic() {
+        let levelMusicURL = NSBundle.mainBundle().URLForResource("level", withExtension: "wav")!
+        do {
+            musicPlayer = try AVAudioPlayer(contentsOfURL: levelMusicURL)
+            musicPlayer.numberOfLoops = -1 // infinite play
+            musicPlayer.prepareToPlay()
+            musicPlayer.play()
+        } catch {
+            
         }
     }
 }

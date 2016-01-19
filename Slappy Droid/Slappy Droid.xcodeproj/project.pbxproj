@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		6C1A31961C4C0C1C006A85C4 /* Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1A31951C4C0C1C006A85C4 /* Building.swift */; };
+		6C1B751A1C4D88E8005CE507 /* crash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6C1B75161C4D88E8005CE507 /* crash.wav */; };
+		6C1B751B1C4D88E8005CE507 /* gameover.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6C1B75171C4D88E8005CE507 /* gameover.wav */; };
+		6C1B751C1C4D88E8005CE507 /* level.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6C1B75181C4D88E8005CE507 /* level.wav */; };
+		6C1B751D1C4D88E8005CE507 /* ollie.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6C1B75191C4D88E8005CE507 /* ollie.wav */; };
+		6C1B751F1C4D8A6D005CE507 /* ButtonTap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6C1B751E1C4D8A6D005CE507 /* ButtonTap.wav */; };
 		6C4FDE801C43F381002AB9E1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FDE7F1C43F381002AB9E1 /* Player.swift */; };
 		6C4FDE831C43FC6A002AB9E1 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FDE821C43FC6A002AB9E1 /* GameManager.swift */; };
 		6C547ED11C4C07C3001B256D /* Moveable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C547ED01C4C07C3001B256D /* Moveable.swift */; };
@@ -25,6 +30,11 @@
 
 /* Begin PBXFileReference section */
 		6C1A31951C4C0C1C006A85C4 /* Building.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Building.swift; sourceTree = "<group>"; };
+		6C1B75161C4D88E8005CE507 /* crash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = crash.wav; sourceTree = "<group>"; };
+		6C1B75171C4D88E8005CE507 /* gameover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameover.wav; sourceTree = "<group>"; };
+		6C1B75181C4D88E8005CE507 /* level.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = level.wav; sourceTree = "<group>"; };
+		6C1B75191C4D88E8005CE507 /* ollie.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ollie.wav; sourceTree = "<group>"; };
+		6C1B751E1C4D8A6D005CE507 /* ButtonTap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ButtonTap.wav; sourceTree = "<group>"; };
 		6C4FDE7F1C43F381002AB9E1 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		6C4FDE821C43FC6A002AB9E1 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		6C547ED01C4C07C3001B256D /* Moveable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Moveable.swift; sourceTree = "<group>"; };
@@ -53,6 +63,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C1B75151C4D8895005CE507 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				6C1B751E1C4D8A6D005CE507 /* ButtonTap.wav */,
+				6C1B75161C4D88E8005CE507 /* crash.wav */,
+				6C1B75171C4D88E8005CE507 /* gameover.wav */,
+				6C1B75181C4D88E8005CE507 /* level.wav */,
+				6C1B75191C4D88E8005CE507 /* ollie.wav */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
 		6C4FDE811C43FC52002AB9E1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +143,7 @@
 				6C7B64F41C430450008C4BB9 /* GameObjects */,
 				6C4FDE811C43FC52002AB9E1 /* Services */,
 				6C7B64F61C4304B9008C4BB9 /* Resources */,
+				6C1B75151C4D8895005CE507 /* Audio */,
 				6C7B64F31C430443008C4BB9 /* Extensions */,
 				6C7F7A4A1C3AC81E00544C17 /* AppDelegate.swift */,
 				6C7F7A4C1C3AC81E00544C17 /* GameScene.sks */,
@@ -189,9 +212,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C1B751B1C4D88E8005CE507 /* gameover.wav in Resources */,
+				6C1B751C1C4D88E8005CE507 /* level.wav in Resources */,
+				6C1B751D1C4D88E8005CE507 /* ollie.wav in Resources */,
+				6C1B751F1C4D8A6D005CE507 /* ButtonTap.wav in Resources */,
 				6C7F7A561C3AC81E00544C17 /* Main.storyboard in Resources */,
 				6C7F7A4D1C3AC81E00544C17 /* GameScene.sks in Resources */,
 				6C7F7A581C3AC81E00544C17 /* Assets.xcassets in Resources */,
+				6C1B751A1C4D88E8005CE507 /* crash.wav in Resources */,
 				6C7F7A531C3AC81E00544C17 /* Game.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

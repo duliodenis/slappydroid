@@ -67,6 +67,10 @@ class Player: SKSpriteNode {
     func jump() {
         if !isJumping {
             isJumping = true
+            
+            // Play Jump Sound
+            runAction(SKAction.playSoundFileNamed("ollie.wav", waitForCompletion: false))
+            
             let impulseHorizontal: CGFloat = 0.0
             let impulseVertical: CGFloat =  70.0
             physicsBody?.applyImpulse(CGVectorMake(impulseHorizontal, impulseVertical))
