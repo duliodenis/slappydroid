@@ -21,4 +21,5 @@ class GameManager {
     // Collider Categories
     let COLLIDER_OBSTACLE: UInt32 = 1 << 0
     let COLLIDER_PLAYER  : UInt32 = 1 << 1
+    let COLLIDER_RIDEABLE: UInt32 = 1 << 2
 }

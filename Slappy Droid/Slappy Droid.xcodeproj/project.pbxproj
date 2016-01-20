@@ -16,6 +16,7 @@
 		6C4FDE801C43F381002AB9E1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FDE7F1C43F381002AB9E1 /* Player.swift */; };
 		6C4FDE831C43FC6A002AB9E1 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FDE821C43FC6A002AB9E1 /* GameManager.swift */; };
 		6C547ED11C4C07C3001B256D /* Moveable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C547ED01C4C07C3001B256D /* Moveable.swift */; };
+		6C5D2F071C4E9F5300E0761F /* DroidTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5D2F061C4E9F5300E0761F /* DroidTop.swift */; };
 		6C7B64EE1C42FAD8008C4BB9 /* Obstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7B64ED1C42FAD8008C4BB9 /* Obstacle.swift */; };
 		6C7B64F01C4300F9008C4BB9 /* SKNodeUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7B64EF1C4300F9008C4BB9 /* SKNodeUpdate.swift */; };
 		6C7B64F21C430204008C4BB9 /* Droid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7B64F11C430204008C4BB9 /* Droid.swift */; };
@@ -38,6 +39,7 @@
 		6C4FDE7F1C43F381002AB9E1 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		6C4FDE821C43FC6A002AB9E1 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		6C547ED01C4C07C3001B256D /* Moveable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Moveable.swift; sourceTree = "<group>"; };
+		6C5D2F061C4E9F5300E0761F /* DroidTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DroidTop.swift; sourceTree = "<group>"; };
 		6C7B64ED1C42FAD8008C4BB9 /* Obstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstacle.swift; sourceTree = "<group>"; };
 		6C7B64EF1C4300F9008C4BB9 /* SKNodeUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKNodeUpdate.swift; sourceTree = "<group>"; };
 		6C7B64F11C430204008C4BB9 /* Droid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Droid.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				6C7B64ED1C42FAD8008C4BB9 /* Obstacle.swift */,
 				6C1A31951C4C0C1C006A85C4 /* Building.swift */,
 				6C7B64F11C430204008C4BB9 /* Droid.swift */,
+				6C5D2F061C4E9F5300E0761F /* DroidTop.swift */,
 				6C4FDE7F1C43F381002AB9E1 /* Player.swift */,
 			);
 			name = GameObjects;
@@ -234,6 +237,7 @@
 				6C7F7A4F1C3AC81E00544C17 /* GameScene.swift in Sources */,
 				6C4FDE831C43FC6A002AB9E1 /* GameManager.swift in Sources */,
 				6C7F7A511C3AC81E00544C17 /* GameViewController.swift in Sources */,
+				6C5D2F071C4E9F5300E0761F /* DroidTop.swift in Sources */,
 				6C7B64F01C4300F9008C4BB9 /* SKNodeUpdate.swift in Sources */,
 				6C7B64EE1C42FAD8008C4BB9 /* Obstacle.swift in Sources */,
 				6C4FDE801C43F381002AB9E1 /* Player.swift in Sources */,

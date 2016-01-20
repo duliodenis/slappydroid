@@ -19,9 +19,5 @@ class Obstacle: Moveable {
     
     func initPhysics() {
         physicsBody?.dynamic = false // set as static obstacles
-        
-        // Define Collision Category
-        physicsBody?.categoryBitMask = GameManager.sharedInstance.COLLIDER_OBSTACLE
-        physicsBody?.contactTestBitMask = GameManager.sharedInstance.COLLIDER_PLAYER
     }
 }

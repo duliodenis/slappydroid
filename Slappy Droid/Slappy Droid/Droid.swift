@@ -18,9 +18,12 @@ class Droid: Obstacle {
     
     override func initPhysics() {
         let frontCollider = SKPhysicsBody(rectangleOfSize: CGSizeMake(5, size.height), center: CGPointMake(-size.width/2, 0))
-        let topCollider = SKPhysicsBody(rectangleOfSize: CGSizeMake(size.width * 0.80, 5), center: CGPointMake(0, (size.height / 2) - 7))
         
-        physicsBody = SKPhysicsBody(bodies: [frontCollider, topCollider])
+        // Define Collision Category
+        frontCollider.categoryBitMask = GameManager.sharedInstance.COLLIDER_OBSTACLE
+        frontCollider.contactTestBitMask = GameManager.sharedInstance.COLLIDER_PLAYER
+        
+        physicsBody = frontCollider
         zPosition = 5
         super.initPhysics()
     }

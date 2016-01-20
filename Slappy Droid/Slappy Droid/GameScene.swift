@@ -168,9 +168,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setupDroid() {
         let droid = Droid()
+        let droidTop = DroidTop()
+        
+        // Add a top to the Droid so we can land on it and jump off of it
+        droidTop.position = CGPointMake(droid.position.x, droid.position.y + 40)
+        
         droid.startMoving()
+        droidTop.startMoving()
+        
         addChild(droid)
+        addChild(droidTop)
         obstacles.append(droid)
+        obstacles.append(droidTop)
     }
     
     
